@@ -1,0 +1,12 @@
+FROM golang:alpine as go-server
+
+ENV GO111MODULE=on
+ENV GOPROXY=https://goproxy.io,direct
+WORKDIR /go/src/gin-vue-admin
+COPY ./ ./
+
+RUN go env && go list && go build -o go-server .
+
+EXPOSE 8888
+
+ENTRYPOINT ./go-server
